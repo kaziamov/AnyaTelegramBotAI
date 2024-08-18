@@ -7,7 +7,9 @@ readme = "README.md"
 
 
 packages = [
-    { include = "entry_to_telegram", from = "src" }
+    { include = "entry_to_telegram", from = "src" },
+    { include = "tests", from = "src" },
+    { include = "database", from = "src" }
 ]
 
 
