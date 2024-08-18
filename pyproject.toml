@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "AnyaTelegramBotAI"
+version = "0.1.0"
+description = ""
+authors = ["mac <risephoenixpuryfire@gmail.com>"]
+readme = "README.md"
+
+
+packages = [
+    { include = "entry_to_telegram", from = "src" }
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+logging = "^0.4.9.6"
+pytelegrambotapi = "^4.22.1"
+pytest = "^8.3.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
