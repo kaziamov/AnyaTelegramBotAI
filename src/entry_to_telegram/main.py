@@ -1,7 +1,11 @@
-# добавить разговорную часть
-# перенести change
+import os
+from telebot import TeleBot
+from 
 
-from logging import DEBUG
-import telebot
+bot = TeleBot(token=TOKEN, parse_mode=None)
 
-bot = telebot.TeleBot("TOKEN", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    bot.reply_to(message, "Привет!")
+
+bot.polling()

@@ -1,6 +1,9 @@
 # Имя файла Docker Compose
 COMPOSE_FILE=docker-compose.yml
 
+# Переменные окружения
+APP_PORT ?= 8000
+
 # Сервисные команды
 up:
 	@docker-compose -f $(COMPOSE_FILE) up -d
@@ -26,7 +29,7 @@ clean:
 
 # Команды для отдельных сервисов
 app-shell:
-	@docker-compose -f $(COMPOSE_FILE) exec app bash
+	@docker-compose -f $(COMPOSE_FILE) exec  bash
 
 postgres-shell:
 	@docker-compose -f $(COMPOSE_FILE) exec postgres bash
@@ -42,6 +45,5 @@ help:
 	@echo "  ps            Показать статус контейнеров"
 	@echo "  logs          Просмотр логов в реальном времени"
 	@echo "  clean         Остановить контейнеры и удалить образы и тома"
-	@echo "  app-shell     Запуск bash внутри контейнера app"
+	@echo "  app-shell     Запуск bash внутри контейнера AnyaTelegramBot"
 	@echo "  postgres-shell Запустить bash внутри контейнера postgres"
-

@@ -1,20 +1,31 @@
-version: '3.3'
+version: '3.8'
 
 services:
-  postgres:
+  db:
     image: postgres:latest
-    env_file: .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-telegram_db}
     volumes:
-      - ./postgres_data:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql/data
       - ./data.sql:/docker-entrypoint-initdb.d/001.sql
+    ports:
+      - "5432:5432"
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/main.py
-    command: python3 main.py
-    env_file: .env
+      - ./src:/app/src
     depends_on:
-      - postgres
+      - db
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-telegram_db}
+    ports:
+      - "8000:8000"
+    command: ["poetry", "run", "python", "src/entry_to_telegram/main.py"]
+
+volumes:
+  postgres_data:
